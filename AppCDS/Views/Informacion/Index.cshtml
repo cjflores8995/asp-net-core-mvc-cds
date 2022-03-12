@@ -1,0 +1,69 @@
+﻿@model AppCDS.Models.DiscoCategoriasViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Discos. Existen un total de @Model.TotalDiscos</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Informacion" asp-action="Index" method="get">
+    <p>
+        <select asp-for="DiscoAutor" asp-items="Model.Autores">
+            <option value="">All Discos</option>
+        </select>
+
+        <select asp-for="DiscoAnio" asp-items="Model.Anios">
+            <option value="">All Años</option>
+        </select>
+
+        Disco: <input type="text" name="SearchString" />
+        <input type="submit" value="Filtrar" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Discos[0].Autor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discos[0].NombreDisco)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discos[0].NumeroCanciones)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discos[0].Anio)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Discos) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Autor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreDisco)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroCanciones)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Anio)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
